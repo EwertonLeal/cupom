@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        .modalPromocaoContainer { width: 100%; transform: translateY(-200%); position: fixed; }
+        .modalPromocaoContent   {
+         padding: 2rem;
+         max-width: 500px; 
+         min-width: 300px; 
+         border: 1px solid #ddd;
+         border-radius: 5px;
+         box-shadow: 1px 1px 5px 0 #acacac3d;
+         background-color: #fff;
+         margin: 0 auto;
+         font-family: sans-serif;
+         text-align: center;
+        }
+
+        .modalPromocaoContent h3     { margin: 0; padding: 0; text-align: center; }
+        .modalPromocaoContent button {
+         border: 1px solid #00ff4c1f;
+         padding: .8rem 2rem;
+         border-radius: 5px;
+         text-transform: uppercase;
+         margin: 0 auto;
+         background: #00ff4c7a;
+         color: #064d18;
+         font-weight: 700;
+         cursor: pointer;
+         }
+
+        .deslizaParaBaixo { animation: deslizaParaBaixo .2s forwards;}
+        .deslizaParaCima  { animation: deslizaParaCima  .3s forwards;}
+
+        @keyframes deslizaParaBaixo {
+         from { transform: translateY(-200%); }
+         to   { transform: translateY(0%); }
+        }
+
+        @keyframes deslizaParaCima {
+         from { transform: translateY(0%); }
+         to   { transform: translateY(-200%); }
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <aside class="modalPromocaoContainer">
+        <div class="modalPromocaoContent">
+            <h3>Já vai sair do nosso site ?</h3>
+            <p>utilize o cupom #loremIpsum e ganhe 10% na sua primeira compra!</p>
+            <button data-resgate="getCupom">resgatar</button>
+        </div>
+    </aside>
+
+<script>
+
+    const modalPromocaoContainer = document.querySelector('.modalPromocaoContainer');
+    const getCupom = document.querySelector('[data-resgate="getCupom"]');
+
+    document.addEventListener('mousemove', mouse => {
+
+        let screen = innerWidth;
+        mouseX = (screen -mouse.x);
+
+        if(mouse.y <= 3 && mouseX <= 45) {
+
+            if(modalPromocaoContainer.classList.contains('deslizaParaCima')) {
+                modalPromocaoContainer.classList.remove('deslizaParaCima')
+                modalPromocaoContainer.classList.add('deslizaParaBaixo')
+            } else {
+                modalPromocaoContainer.classList.add('deslizaParaBaixo')
+            }
+            
+        }
+
+    });
+
+    getCupom.onclick = ()=> { 
+        
+        modalPromocaoContainer.classList.remove('deslizaParaBaixo')
+        modalPromocaoContainer.classList.add('deslizaParaCima')
+    }
+
+</script>    
+</body>
+</html>
